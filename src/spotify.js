@@ -11,7 +11,7 @@ export async function getAccessToken() {
 
     const authHeader = Buffer.from(`${REACT_APP_SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64');
     const response = await fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
+        method: 'GET',
         headers: {
             Authorization: `Basic ${authHeader}`,
             'Content-Type': 'application/x-www-form-urlencoded',
