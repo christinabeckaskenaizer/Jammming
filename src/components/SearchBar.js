@@ -1,10 +1,14 @@
 import { toBeChecked } from "@testing-library/jest-dom/matchers";
 import { getAccessToken } from "../spotify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { json } from "react-router-dom";
+import { Buffer } from 'buffer';
+Buffer.from('anything', 'base64');
 
 export default function SearchBar() {
 
   const [text, setText] = useState('');
+
 
   const handleChange = async (e) => {
     setText(e.target.value);
@@ -13,24 +17,22 @@ export default function SearchBar() {
   //ok so now text should be available and I can enter a song now....
 
   const handleSearch = async () => {
-    const searchURL = "https://api.spotify.com/search";
+    const searchURL = `https://api.spotify.com/v1/search?q=${text}&type=artist,track`;
+    console.log("URL", searchURL);
     try {
       const response = await fetch(searchURL, {
         method: 'GET',
         headers: {
-          'access_token': getAccessToken,
-          "token_type": "Bearer",
+          'Authorization': `Bearer token`,
         }
       });
-      const json = await response.json();
-      console.log(json);
+      const data = await response.json();
+      console.log('DATA', data);
     } catch (error) {
       console.log("error", error);
     }
-
-    console.log("TOKEN", getAccessToken);
-    console.log('clicked!');
   }
+
 
   return (
     <div className="mt-10 flex justify-center">
