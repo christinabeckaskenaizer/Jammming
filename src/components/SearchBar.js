@@ -8,7 +8,7 @@ Buffer.from('anything', 'base64');
 export default function SearchBar() {
 
   const [text, setText] = useState('');
-
+  const [token, setToken] = useState('');
 
   const handleChange = async (e) => {
     setText(e.target.value);
@@ -19,20 +19,31 @@ export default function SearchBar() {
   const handleSearch = async () => {
     const searchURL = `https://api.spotify.com/v1/search?q=${text}&type=artist,track`;
     console.log("URL", searchURL);
-    try {
-      const response = await fetch(searchURL, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer token`,
-        }
-      });
-      const data = await response.json();
-      console.log('DATA', data);
-    } catch (error) {
-      console.log("error", error);
+    console.log("should be here", token);
+    if (token) {
+      try {
+        const response = await fetch(searchURL, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+        const data = await response.json();
+        console.log('DATA', data);
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   }
 
+  const getToken = async () => {
+    let token = await getAccessToken();
+  }
+
+  useEffect(() => {
+    let token = getToken();
+    setToken(token);
+  }, [])
 
   return (
     <div className="mt-10 flex justify-center">
