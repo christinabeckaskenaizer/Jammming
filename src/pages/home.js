@@ -7,6 +7,8 @@ export default function Home() {
 
   // hooks here for search results
   const [searchResults, setSearchResults] = useState();
+  const [playlist, setPlaylist] = useState([]);
+
   console.log("reults in home", searchResults)
   return (
     <div className="w-screen h-screen flex flex-col bg-gradient-to-b from-black to-purple-700">
@@ -16,7 +18,7 @@ export default function Home() {
       <SearchBar searchResults={searchResults} setSearchResults={setSearchResults}/* pass hooks here into searchBar as props, including the set functions, and update the hook on search */ />
       <div className='sm:flex sm:flex-row w-full items-center justify-center'>
         <ListResults searchResults={searchResults} /* pass hooks into results - once searchBar has updated hooks, state will update and searchResults can display data from hooks */ />
-        <PlayList />
+        <PlayList searchResults={searchResults} />
       </div>
     </div>
   );

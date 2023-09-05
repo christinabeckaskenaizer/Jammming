@@ -1,6 +1,11 @@
 import SearchBar from "./SearchBar"
 
-export default function TextTrackList({ track }) {
+export default function TextTrackList({ track, SearchResults }) {
+
+    const addSong = async () => {
+
+    }
+
     return (
         <>
             <div className="flex grid-cols-2">
@@ -9,7 +14,7 @@ export default function TextTrackList({ track }) {
                     <p className="font-light">{track.artists[0].name} | {track.album.name} </p>
                     <hr className="mt-3"></hr>
                 </div >
-                <button className="text-white justify-center w-1/12">+</button>
+                <button onClick={addSong} className="text-white justify-center w-1/12">+</button>
                 <hr className="mt-3"></hr>
             </div>
         </>
